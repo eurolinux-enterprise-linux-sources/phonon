@@ -9,7 +9,7 @@
 Summary: Multimedia framework api
 Name:    phonon
 Version: 4.6.0
-Release: 10%{?dist}
+Release: 7%{?dist}
 Group:   System Environment/Libraries
 License: LGPLv2+
 URL:     http://phonon.kde.org/
@@ -23,7 +23,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 ## upstreamable patches
 # phonon_backend ... could not be loaded
 # http://bugzilla.redhat.com/760039
-Patch50: phonon-4.5.57-plugindir.patch
+Patch50: phonon-4.5.57-plugindir.patch 
 Patch51: phonon-4.6.0-syntax.patch
 # https://git.reviewboard.kde.org/r/103423
 Patch52: phonon-4.6.0-rpath.patch
@@ -78,7 +78,7 @@ Provides:  phonon-experimental-devel = %{version}-%{release}
 Summary: Experimental interfaces for %{name}
 Group:   System Environment/Libraries
 Requires: %{name}%{?_isa} = %{version}-%{release}
-%description experimental
+%description experimental 
 %{summary}.
 
 %package experimental-devel
@@ -93,7 +93,7 @@ Includes experimental and unstable apis.
 
 
 %prep
-%setup -q
+%setup -q 
 
 %patch50 -p1 -b .plugindir
 %patch51 -p1 -b .syntax
@@ -136,20 +136,6 @@ make test -C %{_target_platform} ||:
 %clean
 rm -rf %{buildroot}
 
-%pretrans devel -p <lua>
-path = "/usr/include/phonon/Phonon"
-st = posix.stat(path)
-if st and st.type == "directory" then
-  status = os.rename(path, path .. ".rpmmoved")
-  if not status then
-    suffix = 0
-    while not status do
-      suffix = suffix + 1
-      status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
-    end
-    os.rename(path, path .. ".rpmmoved")
-  end
-end
 
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -197,20 +183,6 @@ end
 
 
 %changelog
-* Mon Aug 17 2015 Scientific Linux Auto Patch Process <SCIENTIFIC-LINUX-DEVEL@LISTSERV.FNAL.GOV>
-- Eliminated rpmbuild "bogus date" error due to inconsistent weekday,
-  by assuming the date is correct and changing the weekday.
-
-* Tue Aug 04 2015 Jan Grulich <jgrulich@redhat.com> - 4.6.0-10
-- Fix upgrade for phonon-devel
-  Resolves: bz#1091337
-
-* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 4.6.0-9
-- Mass rebuild 2014-01-24
-
-* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 4.6.0-8
-- Mass rebuild 2013-12-27
-
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.6.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
@@ -321,7 +293,7 @@ end
 - sync w/mdv patches
 
 * Fri Jan 22 2010 Rex Dieter <rdieter@fedoraproject.org> - 4.3.80-5.2
-- F11: patch/modularize pa device-manager bits
+- F11: patch/modularize pa device-manager bits 
 
 * Fri Jan 22 2010 Kevin Kofler <Kevin@tigcc.ticalc.org> - 4.3.80-5.1
 - F11: port the old PA device priorities patch as we don't have PA integration
@@ -441,7 +413,7 @@ fader)
 * Thu Jan 08 2009 Lorenzo Villani <lvillani@binaryhelix.net> - 4.2.96-1
 - 4.2.96
 - rebase phonon-4.2.0-pulseaudio.patch (-> phonon-4.2.96-pulseaudio.patch)
-- rebase phonon-4.2.70-xine-pulseaudio.patch
+- rebase phonon-4.2.70-xine-pulseaudio.patch 
   (-> phonon-4.2.96-xine-pulseaudio.patch)
 
 * Fri Dec 12 2008 Rex Dieter <rdieter@fedoraproject.org> 4.2.80-3
